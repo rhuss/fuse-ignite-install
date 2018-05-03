@@ -202,7 +202,7 @@ release() {
     fi
 
     echo "=== Tagging $fuse_ignite_tag"
-    git tag "${fuse_ignite_tag}"
+    git tag -f "${fuse_ignite_tag}"
 
     local moving_tag=$(extract_minor_version $fuse_ignite_tag)
     check_error $moving_tag
