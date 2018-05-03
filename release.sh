@@ -78,7 +78,12 @@ git_commit() {
     local release_version="$3"
 
     if [ ! $(hasflag --dry-run -n) ]; then
-        git ls-files --modified | grep $pattern | xargs git commit -m "[$release_version]: $message"
+        local mod_files=$(git ls-files --modified | grep $pattern)
+        if [ -n "$mod_files" ]; then
+            echo "$mod_files" | xargs git commit -m "[$release_version]: $message"
+        else
+            echo "Nothing changed"
+        fi
     fi
 }
 
